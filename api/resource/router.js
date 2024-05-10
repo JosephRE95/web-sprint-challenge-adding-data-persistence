@@ -1,1 +1,1 @@
-// build your `/api/resources` router here
+// api/resourcesRouter.js
