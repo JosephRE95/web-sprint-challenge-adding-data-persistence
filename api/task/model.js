@@ -1,3 +1,5 @@
+// tasksModel.js
+
 const db = require('../../data/dbConfig');
 
 function getAllTasks() {
@@ -9,7 +11,13 @@ function getTaskById(id) {
 }
 
 async function createTask(task) {
-  const [taskId] = await db('tasks').insert(task);
+  // Ensure that the task_completed field is stored as a boolean
+  const newTask = {
+    ...task,
+    task_completed: !!task.task_completed // Convert to boolean
+  };
+
+  const [taskId] = await db('tasks').insert(newTask);
   return getTaskById(taskId);
 }
 

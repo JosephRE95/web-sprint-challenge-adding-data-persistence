@@ -1,3 +1,5 @@
+// projectsModel.js
+
 const db = require('../../data/dbConfig');
 
 function getAllProjects() {
