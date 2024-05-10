@@ -1,12 +1,7 @@
 const db = require('../../data/dbConfig');
 
 function getAllTasks() {
-  return db('tasks').select(
-    'task_id',
-    'task_description',
-    'task_notes',
-    db.raw('CAST(task_completed AS BOOLEAN) AS task_completed')
-  );
+  return db('tasks');
 }
 
 function getTaskById(id) {
@@ -14,13 +9,7 @@ function getTaskById(id) {
 }
 
 async function createTask(task) {
-  // Ensure that the task_completed field is stored as a boolean
-  const newTask = {
-    ...task,
-    task_completed: !!task.task_completed // Convert to boolean
-  };
-
-  const [taskId] = await db('tasks').insert(newTask);
+  const [taskId] = await db('tasks').insert(task);
   return getTaskById(taskId);
 }
 

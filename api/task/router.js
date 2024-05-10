@@ -1,4 +1,3 @@
-// build your `/api/tasks` router here
 const express = require('express');
 const router = express.Router();
 const tasksModel = require('./model');
@@ -31,8 +30,6 @@ router.get('/:id', async (req, res) => {
   try {
     const task = await tasksModel.getTaskById(taskId);
     if (task) {
-      // Convert task_completed to boolean
-      task.task_completed = !!task.task_completed;
       res.status(200).json(task);
     } else {
       res.status(404).json({ error: 'Task not found' });
@@ -42,7 +39,5 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to retrieve task' });
   }
 });
-
-
 
 module.exports = router;
