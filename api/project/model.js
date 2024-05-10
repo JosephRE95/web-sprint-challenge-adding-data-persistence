@@ -10,19 +10,23 @@ function getProjectById(id) {
   return db('projects').where('project_id', id).first();
 }
 
+
 async function createProject(project) {
-  // Ensure that the project_completed field is stored as a boolean
+  // Ensure that the project_completed field is stored as a boolean false
   const newProject = {
     ...project,
-    project_completed: !!project.project_completed // Convert to boolean
+    project_completed: false
   };
 
   const [projectId] = await db('projects').insert(newProject);
   return getProjectById(projectId);
 }
 
+
 module.exports = {
   getAllProjects,
   getProjectById,
   createProject
 };
+
+
