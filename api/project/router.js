@@ -1,3 +1,5 @@
+// router.js
+
 const express = require('express');
 const router = express.Router();
 const projectsModel = require('./model');
@@ -20,7 +22,7 @@ router.get('/', async (req, res) => {
     // Convert project_completed to boolean
     const modifiedProjects = projects.map(project => ({
       ...project,
-      project_completed: project.project_completed === 1 ? true : false
+      project_completed: !!project.project_completed
     }));
     res.status(200).json(modifiedProjects);
   } catch (error) {
