@@ -18,11 +18,7 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const tasks = await tasksModel.getAllTasks();
-    const modifiedTasks = tasks.map(task => ({
-      ...task,
-      task_completed: !!task.task_completed // Convert to boolean
-    }));
-    res.status(200).json(modifiedTasks);
+    res.status(200).json(tasks);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to retrieve tasks' });
@@ -46,6 +42,7 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to retrieve task' });
   }
 });
+
 
 
 module.exports = router;
