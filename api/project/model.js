@@ -9,7 +9,13 @@ function getProjectById(id) {
 }
 
 async function createProject(project) {
-  const [projectId] = await db('projects').insert(project);
+  // Ensure that the project_completed field is stored as a boolean
+  const newProject = {
+    ...project,
+    project_completed: !!project.project_completed // Convert to boolean
+  };
+
+  const [projectId] = await db('projects').insert(newProject);
   return getProjectById(projectId);
 }
 
