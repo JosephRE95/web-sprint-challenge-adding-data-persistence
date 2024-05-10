@@ -17,9 +17,10 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const projects = await projectsModel.getAllProjects();
+    // Convert project_completed to boolean
     const modifiedProjects = projects.map(project => ({
       ...project,
-      isActive: project.isActive === 1 ? true : false // Convert 1 to true, 0 to false
+      project_completed: project.project_completed === 1 ? true : false
     }));
     res.status(200).json(modifiedProjects);
   } catch (error) {
