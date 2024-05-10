@@ -1,16 +1,12 @@
 const db = require('../../data/dbConfig');
 
 function getAllTasks() {
-  return db('tasks as t')
-    .join('projects as p', 't.project_id', 'p.project_id')
-    .select(
-      't.task_id',
-      't.task_description',
-      't.task_notes',
-      't.task_completed',
-      'p.project_name',
-      'p.project_description'
-    );
+  return db('tasks').select(
+    'task_id',
+    'task_description',
+    'task_notes',
+    db.raw('CAST(task_completed AS BOOLEAN) AS task_completed')
+  );
 }
 
 function getTaskById(id) {
