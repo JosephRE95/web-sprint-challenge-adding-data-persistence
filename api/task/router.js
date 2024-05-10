@@ -1,3 +1,5 @@
+// router.js
+
 const express = require('express');
 const router = express.Router();
 const tasksModel = require('./model');
@@ -17,7 +19,12 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const tasks = await tasksModel.getAllTasks();
-    res.status(200).json(tasks);
+    // Convert task_completed to boolean
+    const modifiedTasks = tasks.map(task => ({
+      ...task,
+      task_completed: !!task.task_completed
+    }));
+    res.status(200).json(modifiedTasks);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to retrieve tasks' });
@@ -30,6 +37,8 @@ router.get('/:id', async (req, res) => {
   try {
     const task = await tasksModel.getTaskById(taskId);
     if (task) {
+      // Convert task_completed to boolean
+      task.task_completed = !!task.task_completed;
       res.status(200).json(task);
     } else {
       res.status(404).json({ error: 'Task not found' });
