@@ -17,8 +17,11 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const projects = await projectsModel.getAllProjects();
-    console.log(projects)
-    res.status(200).json(projects);
+    const modifiedProjects = projects.map(project => ({
+      ...project,
+      isActive: project.isActive === 1 ? true : false // Convert 1 to true, 0 to false
+    }));
+    res.status(200).json(modifiedProjects);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to retrieve projects' });
