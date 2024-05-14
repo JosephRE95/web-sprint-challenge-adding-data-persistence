@@ -22,8 +22,8 @@ router.get('/', async (req, res) => {
     const tasks = await tasksModel.getAllTasks();
     // Convert task_completed to boolean
     const modifiedTasks = tasks.map(task => ({
-      ...task,
-      task_completed: !!task.task_completed
+      project_name: task.project_name,
+      project_description: task.project_description
     }));
     res.status(200).json(modifiedTasks);
   } catch (error) {
