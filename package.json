@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
     "up": "knex migrate up",
     "down": "knex migrate down",
     "latest": "knex migrate:latest",
