@@ -8,7 +8,7 @@ const projectsModel = require('./model');
 router.post('/', async (req, res) => {
   try {
     const project = await projectsModel.createProject(req.body);
-    project.project_completed = project.project_completed === 1 
+    project.project_completed = !!project.project_completed
     res.status(201).json(project);
 
   } catch (error) {
