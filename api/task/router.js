@@ -8,6 +8,7 @@ const tasksModel = require('./model');
 router.post('/', async (req, res) => {
   try {
     const task = await tasksModel.createTask(req.body);
+    task.task_completed = !!task.task_completed;
     res.status(201).json(task);
   } catch (error) {
     console.error(error);
