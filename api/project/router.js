@@ -7,8 +7,12 @@ const projectsModel = require('./model');
 // POST /api/projects
 router.post('/', async (req, res) => {
   try {
+    console.log(req.body)
     const project = await projectsModel.createProject(req.body);
+    console.log(project,'quest')
+
     project.project_completed = !!project.project_completed
+    console.log(project)
     res.status(201).json(project);
 
   } catch (error) {

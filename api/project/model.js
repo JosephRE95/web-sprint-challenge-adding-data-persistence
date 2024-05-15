@@ -15,7 +15,8 @@ async function createProject(project) {
   // Ensure that the project_completed field is stored as a boolean false
   const newProject = {
     ...project,
-    project_completed: false
+    project_completed: !!project.project_completed
+
   };
 
   const [projectId] = await db('projects').insert(newProject);
