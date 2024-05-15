@@ -22,6 +22,7 @@ router.post('/', async (req, res) => {
 });
 
 // GET /api/projects
+
 router.get('/', async (req, res) => {
   try {
     const projects = await projectsModel.getAllProjects();

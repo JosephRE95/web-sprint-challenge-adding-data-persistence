@@ -16,14 +16,15 @@ router.post('/', async (req, res) => {
   }
 });
 
-// GET /api/tasks
+// GET /api/tasks 
+
 router.get('/', async (req, res) => {
   try {
     const tasks = await tasksModel.getAllTasks();
     // Convert task_completed to boolean
     const modifiedTasks = tasks.map(task => ({
-      project_name: task.project_name,
-      project_description: task.project_description
+      ...task,
+      task_completed: !!task.task_completed
     }));
     res.status(200).json(modifiedTasks);
   } catch (error) {
